@@ -37,7 +37,10 @@ jobs:
     
       - name: Start PHP CLI Server
         run: |
-          nohup php -S 127.0.0.1:8080 tests/Servers/Php.php > phpd.log 2>&1 &
+          if [ ${{ matrix.os }} == 'windows-latest' ]; then
+            start /b php -S 127.0.0.1:8080 tests/Servers/Php.php
+          else
+            php -S 127.0.0.1:8080 tests/Servers/Php.php &
 
       - name: Execute tests
         run: vendor/bin/pest --colors=always
