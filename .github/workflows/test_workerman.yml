@@ -37,7 +37,6 @@ jobs:
 
       - name: Start Workerman 4
         run: |
-            sed -i "s|uses(ServerTestCase::class)|//uses(ServerTestCase::class)|g" tests/Pest.php
             php tests/Servers/Workerman4.php start -d
 
       - name: Execute tests

@@ -15,7 +15,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Psr7\Utils;
 
-uses(ServerTestCase::class)->in('Functional');
+//uses(ServerTestCase::class)->in('Functional');
 
 /*
 |--------------------------------------------------------------------------

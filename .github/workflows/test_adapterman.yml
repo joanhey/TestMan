@@ -35,5 +35,9 @@ jobs:
           max_attempts: 5
           command: composer update --prefer-dist --no-interaction --no-progress --ansi
 
+      - name: Start AdapterMan
+        run: |
+            php tests/Servers/Adaterman.php start -d
+  
       - name: Execute tests
         run: vendor/bin/pest --colors=always
