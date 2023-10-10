@@ -37,7 +37,7 @@ jobs:
     
       - name: Start PHP CLI Server
         run: |
-            php -S localhost:8000 tests/Servers/Php.php
+            php -S localhost:8080 tests/Servers/Php.php
 
       - name: Execute tests
         run: vendor/bin/pest --colors=always
