@@ -35,12 +35,13 @@ jobs:
           max_attempts: 5
           command: composer update --prefer-dist --no-interaction --no-progress --ansi
     
+      - name: Start PHP CLI Server Windows
+        if: matrix.os == 'windows-latest'
+        run: start /b php -S 127.0.0.1:8080 tests/Servers/Php.php
+    
       - name: Start PHP CLI Server
-        run: |
-          if [ ${{ matrix.os }} == 'windows-latest' ]; then
-            start /b php -S 127.0.0.1:8080 tests/Servers/Php.php
-          else
-            php -S 127.0.0.1:8080 tests/Servers/Php.php &
+        if: matrix.os != 'windows-latest'
+        run: php -S 127.0.0.1:8080 tests/Servers/Php.php &
 
       - name: Execute tests
         run: vendor/bin/pest --colors=always
