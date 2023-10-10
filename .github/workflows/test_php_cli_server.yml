@@ -37,7 +37,7 @@ jobs:
     
       - name: Start PHP CLI Server
         run: |
-            php -S localhost:8080 tests/Servers/Php.php
+          nohup php -S 127.0.0.1:8080 tests/Servers/Php.php > phpd.log 2>&1 &
 
       - name: Execute tests
         run: vendor/bin/pest --colors=always
