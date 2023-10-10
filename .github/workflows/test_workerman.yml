@@ -38,7 +38,7 @@ jobs:
 
       - name: Start Workerman 4
         run: |
-            composer require walkor/workerman:4
+            composer require walkor/workerman:^4
             composer update
             php tests/Servers/Workerman4.php start -d
 
