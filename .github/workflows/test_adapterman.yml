@@ -37,7 +37,7 @@ jobs:
 
       - name: Start AdapterMan
         run: |
-            php tests/Servers/Adaterman.php start -d
+            php tests/Servers/Adapterman.php start -d
   
       - name: Execute tests
         run: vendor/bin/pest --colors=always
