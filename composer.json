@@ -1,13 +1,13 @@
 {
-    "name": "joanhey/adapterman",
+    "name": "joanhey/testman",
     "type": "library",
     "keywords": [
-        "workerman",
+        "tests",
         "php",
-        "event"
+        "servers"
     ],
     "license": "MIT",
-    "description": "Use any framework and application with Workerman.",
+    "description": "Test any http server.",
     "authors": [
         {
             "name": "Joanhey",
