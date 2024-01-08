@@ -43,6 +43,7 @@ jobs:
       - name: Start AdapterMan
         run: |
             php -c tests/Servers/config/cli-php.ini tests/Servers/Adapterman.php start -d
+            sleep 1
   
       - name: Execute tests
         run: vendor/bin/pest --colors=always
