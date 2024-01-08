@@ -42,7 +42,9 @@ jobs:
             composer update --ansi
 
       - name: Start Workerman 4
-        run: php tests/Servers/Workerman4.php start -d
+        run: |
+          php tests/Servers/Workerman4.php start -d
+          sleep 0.5
 
       - name: Execute tests
         run: vendor/bin/pest --colors=always
