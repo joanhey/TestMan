@@ -36,11 +36,13 @@ jobs:
           max_attempts: 5
           command: composer update --prefer-dist --no-interaction --no-progress --ansi
 
-      - name: Start Workerman 4
+      - name: Install Workerman 4
         run: |
             composer require walkor/workerman:^4 --ansi
             composer update --ansi
-            php tests/Servers/Workerman4.php start -d
+
+      - name: Start Workerman 4
+        run: php tests/Servers/Workerman4.php start -d
 
       - name: Execute tests
         run: vendor/bin/pest --colors=always
