@@ -17,7 +17,7 @@ class RunServer
         self::$server = new Process(['php', '-c', __DIR__ . '/../cli-php.ini',  __DIR__ . '/Servers/Adapterman.php',  'start']);
         self::$server->setTimeout(null);
         self::$server->start();
-        sleep(1);
+        usleep(250000);
 
         echo self::$server->getOutput();
     }
