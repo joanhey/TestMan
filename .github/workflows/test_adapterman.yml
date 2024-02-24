@@ -34,7 +34,7 @@ jobs:
       
       - name: Install Adapterman
         run: | 
-          composer require joanhey/adapterman --ansi
+          composer require joanhey/adapterman:dev-master --ansi
           composer update --ansi
 
       - name: Start AdapterMan
