@@ -28,7 +28,7 @@ $worker->onMessage = function (TcpConnection $connection, Request $request) {
             $request->session()->set('foo', 'bar');
             $connection->send('');
         })(),
-        '/session'    => $connection->send($request->session()->pull('foo')),
+        '/session'    => $connection->send(session($request)),
         '/upload'     => $connection->send(encode($request->file())),
         //'/file'       => $connection->send(encode($request->file('file'))),
 
@@ -47,7 +47,7 @@ $worker->onMessage = function (TcpConnection $connection, Request $request) {
         '/getallheaders' => $connection->send(encode($request->header())),
         '/echo'       => $connection->send(requestEcho($request)),
         // to check also session path
-        '/session/info' => $connection->send(sessionInfo()),
+        '/session/info' => $connection->send(sessionInfo($request)),
         '/session/destroy' => $connection->send(sessionDestroy()),
 
 
@@ -129,27 +129,29 @@ function requestEcho(Request $request): Response
 function cookies(Request $request): string
 {
     if ($request->get() === []) {
-        return new Response(body: encode($request->cookie()));
+        return encode($request->cookie());
     }
 
-    $response = new Response();
+    $response = new Response(headers: ['Content-Type' => 'application/json']);
     if ($set = $request->get('set')) {
         foreach ($set as $name => $value) {
             $response->cookie($name, $value);
         }
 
-        return $response->withBody(encode($request->cookie()));
+        return $response->withBody(json_encode($request->cookie()));
     }
 
     if ($delete = $request->get('delete')) {
         foreach ($delete as $name) {
             if ($request->cookie($name)) {
                 //unset($_COOKIE[$name]);
-                //$response->cookie($name, '', -1);
+                $cookies = $request->cookie();
+                unset($cookies[$name]);
+                $response->cookie($name, '', -1);
             }
         }
 
-        return $response->withBody(encode($request->cookie()));
+        return $response->withBody(json_encode($cookies));
     }
 }
 
@@ -164,62 +166,67 @@ function sessionStatus(int $code): string
     return $status[$code];
 }
 
-function sessionInfo(): Response
+function sessionInfo(Request $request): Response
 {
+    $session = $request->session();
+    
     return encode([
-        'start'  => session_start(),
-        'name'   => session_name(),
-        'id'     => session_id(),
+        'start'  => ($session),
+        'name'   => $session->name(),
+        'id'     => $session->id(),
         'status' => sessionStatus(session_status()),
         'cookies'=> $_COOKIE,
         'default-cookie-params' => session_get_cookie_params(),
         'headers-to-send' => headers_list(),
-        'data'   => $_SESSION,
+        'data'   => $session->all(),
     ]);
 }
 
-function session(): Response
+function session(Request $request): Response
 {
-    session_start();
+    $session = $request->session();
 
-    if($_GET === []) {
-        return encode($_SESSION);
-    }
-
-    if(isset($_GET['set'])) {
-        foreach($_GET['set'] as $name => $value) {
-            $_SESSION[$name] = $value;
+    if ($request->get() === []) {
+        if ($session) {
+            return encode($session->all());
         }
-        //Worker::safeEcho(print_r($_SESSION));
-        return encode($_SESSION);
+        
+        return encode([]);
     }
 
-    if(isset($_GET['delete'])) {
-        foreach($_GET['delete'] as $name) {
-            if (isset($_SESSION[$name])) {
-                unset($_SESSION[$name]); 
+    if($request->get('set')) {
+        foreach($request->get('set') as $name => $value) {
+            $session->set($name, $value);
+        }
+        
+        return encode($session->all());
+    }
+
+    if($request->get('delete')) {
+        foreach($request->get('delete') as $name) {
+                $session->delete($name);
             }
-        }
-        return encode($_SESSION);
+
+        return encode($session->all());
     }
 
 }
 
-function sessionDestroy(): Response
+function sessionDestroy(Request $request): Response
 {
-    session_start();
+    $session = $request->session();
 
     return encode([
-        'destroy'=> session_destroy(),
+        'destroy'=> $session->flush(),
         //'close'  => session_write_close(),
         //'regenerate' => regenerate_id(),
         'name'   => session_name(),
-        'id'     => session_id(),
+        'id'     => $session->getId(),
         'status' => sessionStatus(session_status()),
         'cookies'=> $_COOKIE,
         'default-cookie-params' => session_get_cookie_params(),
         'headers-to-send' => headers_list(),
-        'data'   => $_SESSION,
+        'data'   => $session->all(),
     ]);
 }
 
