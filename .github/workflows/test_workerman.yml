@@ -4,7 +4,7 @@ on: [ push, pull_request ]
 
 jobs:
   linux_tests:
-    runs-on: ubuntu-22.04
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
