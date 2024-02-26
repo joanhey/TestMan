@@ -47,4 +47,6 @@ jobs:
         run: vendor/bin/pest --colors=always
 
       - name: Stop Workerman
-        run: php tests/Servers/Workerman.php stop
+        run: |
+          php -r "print_r( curl_version());"
+          php tests/Servers/Workerman.php stop
