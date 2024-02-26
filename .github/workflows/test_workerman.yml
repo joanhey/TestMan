@@ -35,7 +35,7 @@ jobs:
 
       - name: Install Workerman 4
         run: |
-            composer require workerman/workerman:^4 --ansi
+            composer require workerman/workerman:^4.1 --ansi
             composer update --ansi
 
       - name: Start Workerman 4
