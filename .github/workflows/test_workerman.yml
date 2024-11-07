@@ -33,12 +33,12 @@ jobs:
         run: |
           composer update --prefer-dist --no-interaction --no-progress --ansi
 
-      - name: Install Workerman 4
+      - name: Install Workerman 5
         run: |
-            composer require workerman/workerman:~5 --ansi
+            composer require workerman/workerman:~5.0.0-rc.2 --ansi
             composer update --ansi
 
-      - name: Start Workerman 4
+      - name: Start Workerman 5
         run: |
           php tests/Servers/Workerman4.php start -d
           sleep 1
