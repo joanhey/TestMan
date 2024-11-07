@@ -1,4 +1,4 @@
-name: test Workerman
+name: test Workerman v5
 
 on: [ push, pull_request ]
 
