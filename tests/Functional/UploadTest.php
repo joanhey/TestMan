@@ -37,7 +37,8 @@ it('check $_FILES with composer.json', function ($data) {
             ->toHaveKey('tmp_name')
         ->{$data['file']}->tmp_name
             ->toBeFile();
-})->with('UPLOAD');
+})->with('UPLOAD')
+  ->skip(class_exists('Adapterman') !== true, 'temporarily unavailable');
 
 
 it('get POST Multipart with files', function (array $data) {
