@@ -29,7 +29,6 @@
         "mockery/mockery": "^1.6",
         "guzzlehttp/guzzle": "^7.0"
     },
-    "bin": ["adapterman"],
     "suggest": {
         "ext-event": "For better performance. "
     },
