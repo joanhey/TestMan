@@ -23,7 +23,7 @@ if(isset($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] == 'application/j
 
 
 // Router
-$response = match (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+echo match (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
     // Tests
     '/'          => 'Hello World!',
     '/get'       => encode($_GET),
@@ -53,8 +53,6 @@ $response = match (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
         return '404 Not Found';
     })(),
 };
-
-echo $response;
 
 
 function encode(mixed $data): string
