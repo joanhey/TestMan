@@ -86,7 +86,7 @@ function info(): string
         //Manual change
         'PSR-7'             => false,
         'SERVER'            => 'Workerman',
-        'FRAMEWORK'         => 'Workerman4',
+        'FRAMEWORK'         => 'Workerman',
         'FRAMEWORk_VERSION'  => Worker::VERSION,
 
         //'GLOBALS'           => print_r($GLOBALS),
