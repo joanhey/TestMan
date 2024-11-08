@@ -6,7 +6,7 @@ it('tests GET', function () {
     expect($response->getStatusCode())
         ->toBe(200)
         ->and($response->getHeaderLine('Server'))
-        ->tobe('workerman')
+        ->toBeIn(['workerman'])
         ->and($response->getHeaderLine('Content-Length'))
         ->tobe('12')
         ->and($response->getBody()->getContents())
