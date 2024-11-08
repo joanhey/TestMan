@@ -35,7 +35,7 @@ jobs:
 
       - name: Install Workerman 5
         run: |
-            composer require workerman/workerman:5.0.0-rc.2 --ansi
+            composer require workerman/workerman:dev-master --ansi
             composer update --ansi
 
       - name: Start Workerman 5
