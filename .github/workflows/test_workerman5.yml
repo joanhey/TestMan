@@ -40,8 +40,8 @@ jobs:
 
       - name: Start Workerman 5
         run: |
-          php tests/Servers/Workerman.php start -d
-          sleep 2
+          php tests/Servers/Workerman.php start
+          sleep 1
 
       - name: Execute tests
         run: vendor/bin/pest --colors=always
