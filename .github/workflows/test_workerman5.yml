@@ -40,7 +40,7 @@ jobs:
 
       - name: Start Workerman 5
         run: |
-          php tests/Servers/Workerman.php start
+          php tests/Servers/Workerman.php start -d
           sleep 1
 
       - name: Execute tests
