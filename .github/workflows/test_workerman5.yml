@@ -41,7 +41,7 @@ jobs:
       - name: Start Workerman 5
         run: |
           php tests/Servers/Workerman.php start -d
-          sleep 1
+          sleep 2
 
       - name: Execute tests
         run: vendor/bin/pest --colors=always
